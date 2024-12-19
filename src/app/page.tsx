@@ -16,7 +16,7 @@ export default function Home() {
 
     setBlocks(_blocks);
     setCurrentStep(currentStep == "X" ? "O" : "X");
-    setNumMoves(prev => prev++);
+    setNumMoves(prev => ++prev);
   }
 
   function checkWinner(): string | null | "draw" {
@@ -40,7 +40,7 @@ export default function Home() {
     }
 
     if (numMoves >= 9) {
-      return "draw!";
+      return "It's a Draw!";
     }
     return "Game in Progress";
   }
@@ -56,7 +56,13 @@ export default function Home() {
           Current Move: {currentStep}
         </p>
 
-        Status: {status}
+        <p>
+          Status: {status}
+        </p>
+
+        <p>
+          Number of moves: {numMoves}
+        </p>
       </div>
       <div className="flex justify-center">
         <div className="max-w-3xl flex w-full justify-center flex-wrap h-screen p-4">
