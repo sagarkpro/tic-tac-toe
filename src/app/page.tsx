@@ -7,6 +7,8 @@ export default function Home() {
   const [currentStep, setCurrentStep] = useState("X");
   const [numMoves, setNumMoves] = useState<number>(0);
   const [status, setStatus] = useState<string | null>("Game in Progress");
+  const redShadow = { textShadow: '0 0 5px #ef4444, 0 0 10px #ef4444, 0 0 20px #ef4444, 0 0 40px #ef4444, 0 0 80px #ef4444' };
+  const blueShadow = { textShadow: '0 0 5px #3b82f6, 0 0 10px #3b82f6, 0 0 20px #3b82f6, 0 0 40px #3b82f6, 0 0 80px #3b82f6' };
 
   function playMove(i: number, j: number, value: string) {
     if (blocks[i][j] || status != "Game in Progress")
@@ -50,8 +52,8 @@ export default function Home() {
   }, [blocks])
 
   return (
-    <div className="flex w-full justify-center">
-      <div className="p-4 text-lg font-semibold">
+    <div className="w-full">
+      <div className="p-4 text-lg font-semibold min-w-64 absolute">
         <p>
           Current Move: {currentStep}
         </p>
@@ -64,23 +66,34 @@ export default function Home() {
           Number of moves: {numMoves}
         </p>
       </div>
-      <div className="flex justify-center">
-        <div className="max-w-3xl flex w-full justify-center flex-wrap h-screen p-4">
-          {
-            blocks.map((block, i) => {
-              return (
-                block.map((innerBlock, j) => {
+
+      <div className="flex w-full justify-center">
+        <div className="flex justify-center w-full h-screen items-center">
+          <div className="max-w-full max-h-[700px] 2xsm:h-80 xsm:h-svh aspect-square flex justify-center flex-wrap p-1">
+            <table className="border-2 border-collapse w-full">
+              {
+                blocks.map((block, i) => {
                   return (
-                    <div className="border-2 text-9xl h-1/3 aspect-square flex justify-center items-center select-none" key={i + j} onClick={() => playMove(i, j, currentStep)}>
-                      <p className={`${innerBlock === 'O' ? 'text-red-500' : 'text-blue-500'} `}>
-                        {innerBlock}
-                      </p>
-                    </div>
+                    <thead key={i}>
+                      <tr>
+                        {
+                          block.map((innerBlock, j) => {
+                            return (
+                              <td className="xsm:text-8xl sm:text-9xl text-6xl border-2 text-center h-1/3 aspect-square w-1/3" key={i + j} onClick={() => playMove(i, j, currentStep)}>
+                                <p className={`${innerBlock === 'O' ? 'text-red-500' : 'text-blue-500'} `} style={innerBlock === 'O' ? blueShadow : redShadow}>
+                                  {innerBlock}
+                                </p>
+                              </td>
+                            )
+                          })
+                        }
+                      </tr>
+                    </thead>
                   )
                 })
-              )
-            })
-          }
+              }
+            </table>
+          </div>
         </div>
       </div>
     </div>
