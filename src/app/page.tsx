@@ -74,7 +74,7 @@ export default function Home() {
               {
                 blocks.map((block, i) => {
                   return (
-                    <thead key={i}>
+                    <thead key={i} className="w-1/3 aspect-square" style={{height: `calc(33.33%)`}}>
                       <tr>
                         {
                           block.map((innerBlock, j) => {
